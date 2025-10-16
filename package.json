@@ -1,0 +1,32 @@
+{
+  "name": "blog-api-backend",
+  "version": "1.0.0",
+  "description": "Backend for blogs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vardhanb07/blog-api-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vardhanb07/blog-api-backend/issues"
+  },
+  "homepage": "https://github.com/Vardhanb07/blog-api-backend#readme",
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.17.1"
+  }
+}
