@@ -19,14 +19,14 @@ model Posts {
 }
 
 model Users {
-  id        Int        @id @default(autoincrement())
-  email     String     @db.VarChar(255)
-  Commments Commments?
+  id       Int       @id @default(autoincrement())
+  email    String    @db.VarChar(255)
+  Comments Comments?
 
   @@map("users")
 }
 
-model Commments {
+model Comments {
   id      Int     @id @default(autoincrement())
   content String?
   users   Users   @relation(fields: [userId], references: [id])
