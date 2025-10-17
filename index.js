@@ -1,9 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const postRouter = require("./routes/postRouter");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.ORIGIN,
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/post", postRouter);
