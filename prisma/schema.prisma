@@ -37,7 +37,7 @@ model Comments {
 
 model Admins {
   id       Int    @id @default(autoincrement())
-  username String
+  username String @unique
   password String
 
   @@map("admins")

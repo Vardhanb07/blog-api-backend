@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const passport = require("passport");
 const postRouter = require("./routes/postRouter");
+const loginRouter = require("./routes/loginRouter");
+require("dotenv").config();
 
 const app = express();
 
@@ -11,12 +13,13 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+app.use(passport.initialize());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/post", postRouter);
-
+app.use("/login", loginRouter);
 app.use((req, res) => {
-  res.status(404).json({ msg: "resource not found" });
+  res.status(404).json({ message: "resource not found" });
 });
 
 const port = process.env.PORT || 20000;

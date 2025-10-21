@@ -20,7 +20,14 @@ async function sendPostById(req, res) {
   });
 }
 
+async function createPost(req, res) {
+  res.json({
+    message: "in-progress",
+  });
+}
+
 module.exports = {
   sendPosts,
   sendPostById,
+  createPost,
 };

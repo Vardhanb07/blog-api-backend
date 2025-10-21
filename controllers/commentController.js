@@ -1,8 +1,7 @@
 const prisma = require("../db/client");
 
 async function sendPostComments(req, res) {
-  let { id } = req.params;
-  id = Number(id);
+  const id = Number(req.baseUrl.split("/")[2]);
   const data = await prisma.comments.findMany({
     where: {
       id: id,
@@ -15,10 +14,10 @@ async function sendPostComments(req, res) {
 
 async function sendPostCommentsById(req, res) {
   let { commentId } = req.params;
-  commentId = Number(id);
+  commentId = Number(commentId);
   const data = await prisma.comments.findUnique({
     where: {
-      commentId: commentId,
+      id: commentId,
     },
   });
   res.status(200).json({
@@ -40,7 +39,7 @@ async function postComment(req, res) {
     userId: userId,
   });
   res.status(201).json({
-    msg: "comment created",
+    message: "comment created",
   });
 }
 
