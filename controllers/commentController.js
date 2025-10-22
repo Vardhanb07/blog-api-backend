@@ -43,8 +43,21 @@ async function postComment(req, res) {
   });
 }
 
+async function deleteCommentById(req, res) {
+  let { commentId } = req.params;
+  await prisma.comments.delete({
+    where: {
+      id: commentId,
+    },
+  });
+  res.status(204).json({
+    message: "resource deleted successfully",
+  });
+}
+
 module.exports = {
   sendPostComments,
   sendPostCommentsById,
   postComment,
+  deleteCommentById,
 };

@@ -12,5 +12,7 @@ postRouter.use("/:id/comment", commentRouter);
 
 postRouter.use(passport.authenticate("jwt", { session: false }));
 postRouter.post("/", postController.createPost);
+postRouter.delete("/:id", postController.deletePostById);
+postRouter.put("/:id", postController.updatePostById)
 
 module.exports = postRouter;

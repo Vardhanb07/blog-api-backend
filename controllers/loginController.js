@@ -37,7 +37,6 @@ function adminLogin(req, res) {
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.json({
-        message: "Login success",
         token: token,
       });
     });
