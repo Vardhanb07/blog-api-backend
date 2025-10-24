@@ -1,9 +1,12 @@
 const prisma = require("../db/client");
 
 async function sendPosts(req, res) {
+  let { published } = req.query;
+  if (!published) published = true;
+  if (published === "false") published = false;
   const data = await prisma.posts.findMany({
     where: {
-      published: true,
+      published: published,
     },
   });
   res.status(200).json({
@@ -34,7 +37,7 @@ async function createPost(req, res) {
       published: published,
     },
   });
-  req.status(201).json({
+  res.status(201).json({
     message: "post created successfully",
   });
 }
@@ -56,8 +59,6 @@ async function deletePostById(req, res) {
     message: "resource deleted successfully",
   });
 }
-
-//for drafts
 
 async function updatePostById(req, res) {
   let { id } = req.params;
