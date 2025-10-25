@@ -45,7 +45,7 @@ async function createPost(req, res) {
 async function deletePostById(req, res) {
   let { id } = req.params;
   id = Number(id);
-  await prisma.comments.delete({
+  await prisma.comments.deleteMany({
     where: {
       postId: id,
     },
