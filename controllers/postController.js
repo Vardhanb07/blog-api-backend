@@ -2,7 +2,7 @@ const prisma = require("../db/client");
 
 async function sendPosts(req, res) {
   let { published } = req.query;
-  if (!published) published = true;
+  if (!published || published === "true") published = true;
   if (published === "false") published = false;
   const data = await prisma.posts.findMany({
     where: {
@@ -16,11 +16,14 @@ async function sendPosts(req, res) {
 
 async function sendPostById(req, res) {
   let { id } = req.params;
+  let { published } = req.query;
+  if (!published || published === "true") published = true;
+  if (published === "false") published = false;
   id = Number(id);
   const data = await prisma.posts.findUnique({
     where: {
       id: id,
-      published: true,
+      published: published,
     },
   });
   res.status(200).send({
