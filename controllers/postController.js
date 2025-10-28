@@ -27,7 +27,7 @@ async function sendPostById(req, res) {
         published: published,
       },
     });
-    res.status(200).send({
+    res.status(200).json({
       data: data,
     });
   } else {
@@ -36,7 +36,7 @@ async function sendPostById(req, res) {
         id: id,
       },
     });
-    res.status(200).send({
+    res.status(200).json({
       data: data,
     });
   }
