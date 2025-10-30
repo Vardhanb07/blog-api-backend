@@ -4,7 +4,7 @@ async function sendPostComments(req, res) {
   const id = Number(req.baseUrl.split("/")[2]);
   const data = await prisma.comments.findMany({
     where: {
-      id: id,
+      postId: id,
     },
   });
   res.status(200).json({
@@ -28,15 +28,20 @@ async function sendPostCommentsById(req, res) {
 async function postComment(req, res) {
   let { id } = req.params;
   let { email, content } = req.body;
+  const postId = Number(req.baseUrl.split("/")[2]);
   id = Number(id);
-  const { userId } = await prisma.users.create({
+  const user = await prisma.users.create({
     data: {
       email: email,
     },
   });
+  const userId = user.id;
   await prisma.comments.create({
-    content: content,
-    userId: userId,
+    data: {
+      content: content,
+      postId: postId,
+      userId: userId,
+    },
   });
   res.status(201).json({
     message: "comment created",
