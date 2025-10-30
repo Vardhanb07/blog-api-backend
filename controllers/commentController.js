@@ -1,7 +1,7 @@
 const prisma = require("../db/client");
 
 async function sendPostComments(req, res) {
-  const id = Number(req.baseUrl.split("/")[2]);
+  const id = parseInt(req.baseUrl.split("/")[2]);
   const data = await prisma.comments.findMany({
     where: {
       postId: id,
@@ -14,7 +14,7 @@ async function sendPostComments(req, res) {
 
 async function sendPostCommentsById(req, res) {
   let { commentId } = req.params;
-  commentId = Number(commentId);
+  commentId = parseInt(commentId);
   const data = await prisma.comments.findUnique({
     where: {
       id: commentId,
@@ -28,7 +28,7 @@ async function sendPostCommentsById(req, res) {
 async function postComment(req, res) {
   let { id } = req.params;
   let { email, content } = req.body;
-  const postId = Number(req.baseUrl.split("/")[2]);
+  const postId = parseInt(req.baseUrl.split("/")[2]);
   id = Number(id);
   const user = await prisma.users.create({
     data: {
@@ -50,6 +50,7 @@ async function postComment(req, res) {
 
 async function deleteCommentById(req, res) {
   let { commentId } = req.params;
+  commentId = parseInt(commentId)
   await prisma.comments.delete({
     where: {
       id: commentId,

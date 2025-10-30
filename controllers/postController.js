@@ -16,7 +16,7 @@ async function sendPosts(req, res) {
 
 async function sendPostById(req, res) {
   let { id } = req.params;
-  id = Number(id);
+  id = parseInt(id);
   const data = await prisma.posts.findUnique({
     where: {
       id: id,
@@ -43,7 +43,7 @@ async function createPost(req, res) {
 
 async function deletePostById(req, res) {
   let { id } = req.params;
-  id = Number(id);
+  id = parseInt(id);
   await prisma.comments.deleteMany({
     where: {
       postId: id,
@@ -61,7 +61,7 @@ async function deletePostById(req, res) {
 
 async function updatePostById(req, res) {
   let { id } = req.params;
-  id = Number(id);
+  id = parseInt(id);
   const { title, content, published } = req.body;
   await prisma.posts.update({
     where: {
