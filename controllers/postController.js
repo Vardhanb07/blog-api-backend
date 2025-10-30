@@ -16,30 +16,15 @@ async function sendPosts(req, res) {
 
 async function sendPostById(req, res) {
   let { id } = req.params;
-  let { published } = req.query;
   id = Number(id);
-  if (published) {
-    if (published === "true") published = true;
-    if (published === "false") published = false;
-    const data = await prisma.posts.findUnique({
-      where: {
-        id: id,
-        published: published,
-      },
-    });
-    res.status(200).json({
-      data: data,
-    });
-  } else {
-    const data = await prisma.posts.findUnique({
-      where: {
-        id: id,
-      },
-    });
-    res.status(200).json({
-      data: data,
-    });
-  }
+  const data = await prisma.posts.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  res.status(200).json({
+    data: data,
+  });
 }
 
 async function createPost(req, res) {
