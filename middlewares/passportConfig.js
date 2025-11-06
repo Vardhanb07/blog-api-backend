@@ -1,8 +1,10 @@
+"use strict";
+
 const passport = require("passport");
 const JwtStartegy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const prisma = require("../db/client");
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 passport.use(
   new JwtStartegy(

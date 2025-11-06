@@ -1,13 +1,15 @@
+"use strict";
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const prisma = require("../db/client");
+const { client } = require("../db/client");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    const user = await prisma.admins.findUnique({
+    const user = await client.admins.findUnique({
       where: {
         username: username,
       },

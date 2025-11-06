@@ -2,16 +2,17 @@
   "name": "blog-api-backend",
   "version": "1.0.0",
   "description": "Backend for blogs",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "node --watch ."
+    "dev": "NODE_ENV=development node --watch .",
+    "test": "NODE_ENV=test jest --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Vardhanb07/blog-api-backend.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vardhan Battula",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -31,6 +32,8 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "prisma": "^6.17.1"
+    "jest": "^30.2.0",
+    "prisma": "^6.17.1",
+    "supertest": "^7.1.4"
   }
 }

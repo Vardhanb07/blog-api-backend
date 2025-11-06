@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
@@ -6,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const postRouter = require("./routes/postRouter");
 const loginRouter = require("./routes/loginRouter");
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 const app = express();
 
@@ -35,6 +37,4 @@ app.use((req, res) => {
   res.status(404).json({ message: "resource not found" });
 });
 
-const port = process.env.PORT || 20000;
-
-app.listen(port, () => console.log(`localhost: http://localhost:${port}`));
+module.exports = app;

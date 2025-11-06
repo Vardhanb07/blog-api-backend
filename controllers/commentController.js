@@ -1,13 +1,22 @@
-const prisma = require("../db/client");
+"use strict";
+
+const { client, Prisma } = require("../db/client");
 
 async function sendPostComments(req, res) {
   const id = parseInt(req.baseUrl.split("/")[2]);
-  const data = await prisma.comments.findMany({
-    where: {
-      postId: id,
-    },
-  });
-  res.status(200).json({
+  let data, statusCode;
+  try {
+    data = await client.comments.findMany({
+      where: {
+        postId: id,
+      },
+    });
+    statusCode = 200;
+  } catch (e) {
+    data = e;
+    statusCode = 503;
+  } 
+  res.status(statusCode).json({
     data: data,
   });
 }
@@ -15,7 +24,7 @@ async function sendPostComments(req, res) {
 async function sendPostCommentsById(req, res) {
   let { commentId } = req.params;
   commentId = parseInt(commentId);
-  const data = await prisma.comments.findUnique({
+  const data = await client.comments.findUnique({
     where: {
       id: commentId,
     },
@@ -30,13 +39,13 @@ async function postComment(req, res) {
   let { email, content } = req.body;
   const postId = parseInt(req.baseUrl.split("/")[2]);
   id = Number(id);
-  const user = await prisma.users.create({
+  const user = await client.users.create({
     data: {
       email: email,
     },
   });
   const userId = user.id;
-  await prisma.comments.create({
+  await client.comments.create({
     data: {
       content: content,
       postId: postId,
@@ -50,8 +59,8 @@ async function postComment(req, res) {
 
 async function deleteCommentById(req, res) {
   let { commentId } = req.params;
-  commentId = parseInt(commentId)
-  await prisma.comments.delete({
+  commentId = parseInt(commentId);
+  await client.comments.delete({
     where: {
       id: commentId,
     },

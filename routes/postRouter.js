@@ -1,3 +1,5 @@
+"use strict";
+
 const { Router } = require("express");
 const passport = require("passport");
 const commentRouter = require("./commentRouter");

@@ -1,10 +1,12 @@
-const prisma = require("../db/client");
+"use strict";
+
+const { client } = require("../db/client");
 
 async function sendPosts(req, res) {
   let { published } = req.query;
   if (!published || published === "true") published = true;
   if (published === "false") published = false;
-  const data = await prisma.posts.findMany({
+  const data = await client.posts.findMany({
     where: {
       published: published,
     },
@@ -17,7 +19,7 @@ async function sendPosts(req, res) {
 async function sendPostById(req, res) {
   let { id } = req.params;
   id = parseInt(id);
-  const data = await prisma.posts.findUnique({
+  const data = await client.posts.findUnique({
     where: {
       id: id,
     },
@@ -29,7 +31,7 @@ async function sendPostById(req, res) {
 
 async function createPost(req, res) {
   const { title, content, published } = req.body;
-  await prisma.posts.create({
+  await client.posts.create({
     data: {
       title: title,
       content: content,
@@ -44,12 +46,12 @@ async function createPost(req, res) {
 async function deletePostById(req, res) {
   let { id } = req.params;
   id = parseInt(id);
-  await prisma.comments.deleteMany({
+  await client.comments.deleteMany({
     where: {
       postId: id,
     },
   });
-  await prisma.posts.delete({
+  await client.posts.delete({
     where: {
       id: id,
     },
