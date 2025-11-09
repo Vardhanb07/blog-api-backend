@@ -9,11 +9,16 @@ require("dotenv").config({ quiet: true });
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    const user = await client.admins.findUnique({
-      where: {
-        username: username,
-      },
-    });
+    let user;
+    try {
+      user = await client.admins.findUnique({
+        where: {
+          username: username,
+        },
+      });
+    } catch (e) {
+      return done(null, false, { message: "Api error" });
+    }
     if (!user) {
       return done(null, false, { message: "Incorrect password or username" });
     }
@@ -37,7 +42,9 @@ function adminLogin(req, res) {
       if (err) {
         res.send(err);
       }
-      const token = jwt.sign(user, process.env.JWT_SECRET);
+      const token = jwt.sign(user, process.env.JWT_SECRET, {
+        expiresIn: "30d",
+      });
       res.json({
         token: token,
       });
